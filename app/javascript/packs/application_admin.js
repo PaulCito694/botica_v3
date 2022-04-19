@@ -17,7 +17,6 @@ axios.defaults.headers.common['X-CSRF-Token'] = csrf
 const queryClient = new QueryClient()
 
 const App = () => {
-  console.debug('entra admin')
   return (
     <BrowserRouter basename={'admin'}>
       <Routes>

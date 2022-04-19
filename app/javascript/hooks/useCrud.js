@@ -2,10 +2,10 @@ import {useMutation, useQuery, useQueryClient} from "react-query";
 import React from "react";
 import axios from "axios";
 
-const fetchRecords = (url) => axios.get(`/admin/${url}`).then(response => response.data)
-const createRecord = (values, url) => axios.post(`/admin/${url}`,values)
-const deleteRecord = (id_brand, url) => axios.delete(`/admin/${url}/${id_brand}`)
-const updateRecord = (values, url) => axios.put(`/admin/${url}/${values.id}`,values)
+const fetchRecords = (url) => axios.get(`/admin/v1/${url}`).then(response => response.data)
+const createRecord = (values, url) => axios.post(`/admin/v1/${url}`,values)
+const deleteRecord = (id_brand, url) => axios.delete(`/admin/v1/${url}/${id_brand}`)
+const updateRecord = (values, url) => axios.put(`/admin/v1/${url}/${values.id}`,values)
 
 const useCrud = (url) => {
   const queryClient = useQueryClient()

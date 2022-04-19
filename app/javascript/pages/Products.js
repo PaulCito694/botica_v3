@@ -21,7 +21,6 @@ const filterFunction = (item, filterText) => {
 }
 
 const Products = () =>  {
-  console.debug('entra products')
   const [record, setRecord] = useState(null)
   const [openBrandModal, setOpenBrandModal] = useState(false)
   const [openCategoryModal, setOpenCategoryModal] = useState(false)
@@ -74,16 +73,14 @@ const Products = () =>  {
   return (
     <AppLayout
       title="Catalogo de productos"
-      renderHeader={() => (
-        <h2 className="font-semibold text-xl text-gray-800 leading-tight">
-          Catalogo de productos
-          {openBrandModal && <Brands setOpenBrandModal={setOpenBrandModal}/>}
-          {openCategoryModal && <Categories setOpenCategoryModal={setOpenCategoryModal}/>}
-          {openLaboratoryModal && <Laboratories setOpenLaboratoryModal={setOpenLaboratoryModal}/>}
-        </h2>
-      )}
     >
-      <div className="py-12 bg-slate-400">
+      <h2 className="font-semibold text-xl text-gray-800 leading-tight">
+        Catalogo de productos
+        {openBrandModal && <Brands setOpenBrandModal={setOpenBrandModal}/>}
+        {openCategoryModal && <Categories setOpenCategoryModal={setOpenCategoryModal}/>}
+        {openLaboratoryModal && <Laboratories setOpenLaboratoryModal={setOpenLaboratoryModal}/>}
+      </h2>
+      <div className="py-12 bg-gray-200">
         <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
           <div className="bg-white overflow-hidden shadow-xl sm:rounded-lg">
             <Form

@@ -1,5 +1,6 @@
 import React from 'react';
 import {Divider, IconButton, ListItemIcon, Menu, MenuItem, Typography} from "@mui/material";
+import ExpandMore from '@mui/icons-material/ExpandMore'
 
 const CustomMaterialMenu = ({ row, onDeleteRow, size, onUpdateRow }) => {
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -25,7 +26,7 @@ const CustomMaterialMenu = ({ row, onDeleteRow, size, onUpdateRow }) => {
   return (
     <div>
       <IconButton aria-label="more" aria-controls="long-menu" aria-haspopup="true" onClick={handleClick} size={size}>
-        <MoreVertIcon />
+        <ExpandMore />
       </IconButton>
       <Menu
         id="menu"
