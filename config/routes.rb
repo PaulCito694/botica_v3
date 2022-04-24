@@ -7,6 +7,9 @@ Rails.application.routes.draw do
 
     namespace :v1 do
       resources :brands
+      resources :laboratories
+      resources :categories
+      resources :products, format: "json"
     end
 
     get '*path', to: "home#index", constraints: lambda { |req|

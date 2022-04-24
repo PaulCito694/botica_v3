@@ -1,19 +1,19 @@
-class Admin::V1::BrandsController < ApplicationController
+class Admin::V1::CategoriesController < ApplicationController
   before_action :set_product, only: [:update, :destroy]
 
   def index
-    brands = Brand.all
+    brands = Category.all
     render json: brands, status: :ok
   end
 
   def create
-    brand = Brand.new
-    brand.update(brand_params)
+    brand = Category.new
+    brand.update(category_params)
     brand.save
   end
 
   def update
-    @brand.assign_attributes(brand_params)
+    @brand.assign_attributes(category_params)
     if @brand.save
       render json: {message: "Se creo correctamente la marca"}, status: :created
     end
@@ -28,13 +28,13 @@ class Admin::V1::BrandsController < ApplicationController
   private
 
   def set_brand
-    @brand = Brand.find(params[:id])
+    @brand = Category.find(params[:id])
   end
 
-  def brand_params
+  def category_params
     params.permit(
-    :name,
-    :description
+      :name,
+      :description
     )
   end
 end

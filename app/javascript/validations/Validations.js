@@ -24,6 +24,7 @@ const PHONE_REGEX = /^\+?[0-9]{1,3}-?[0-9]{5,12}$/
 const PERUVIAN_PHONE_REGEX = /^\+?[0-9]{9}$/
 
 const NUMBER_REGEX = /^\d+$/
+const PRICE_REGEX = /^\d{1,5}\.\d{2}$/
 const LETTER = /^([a-zA-ZÀ-ÿ\u00f1\u00d1 ])+$/
 
 export const isEmail =
@@ -45,6 +46,11 @@ export const isNumber =
   (message = 'Solo se permiten números') =>
       (value) =>
       value ? (NUMBER_REGEX.test(value) ? undefined : message) : undefined
+
+export const isPrice =
+  (message = 'Solo se permiten monto de precios') =>
+      (value) =>
+      value ? (PRICE_REGEX.test(value) ? undefined : message) : undefined
 
 export const isDate =
   (message = 'Ingresa una fecha válida') =>

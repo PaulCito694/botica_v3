@@ -12,7 +12,7 @@ import CustomMaterialMenu from "../molecules/CustomMaterialMenu"
 import Button from "../atoms/Button"
 import Add from "@mui/icons-material/Add"
 import {Alert, Snackbar} from "@mui/material"
-import {mix, required, isNumber } from "../validations/Validations"
+import {mix, required, isPrice } from "../validations/Validations"
 
 const filterFunction = (item, filterText) => {
   const names =  item.name?.toLowerCase().includes(filterText.toLowerCase())
@@ -94,8 +94,8 @@ const Products = () =>  {
                       <TextFieldField name='components' label='Componentes'/>
                       <TextFieldField name='location' label='Ubicacion' />
                       <TextFieldField name='digemid_code' label='Codigo DIGEMID'/>
-                      <TextFieldField name='wholesale_price' label='Precio por mayor' validate={mix(required(), isNumber())}/>
-                      <TextFieldField name='retail_price' label='Precio por menor' validate={mix(required(), isNumber())}/>
+                      <TextFieldField name='wholesale_price' label='Precio por mayor' validate={mix(required(), isPrice())}/>
+                      <TextFieldField name='retail_price' label='Precio por menor' validate={mix(required(), isPrice())}/>
                       <AutoCompleteField name='brand_id' label='Marca' data={brands} addButtonClick={setOpenBrandModal} validate={required()}/>
                       <AutoCompleteField name='laboratory_id' label='Laboratorio' data={laboratories} addButtonClick={setOpenLaboratoryModal} validate={required()}/>
                       <AutoCompleteField name='category_id' label='Categoria' data={categories} addButtonClick={setOpenCategoryModal} validate={required()}/>
@@ -121,7 +121,7 @@ const Products = () =>  {
                     </div>
                   </div>
                   <DataTable
-                    data={products}
+                    data={products.data}
                     columns={columns}
                     filterFunction={filterFunction}
                     className='bg-slate-400'
