@@ -72,7 +72,7 @@ const Products = () =>  {
   if (status !== 'success') return null
   return (
     <AppLayout
-      title="Catalogo de productos"
+      title="Catalogo de productos editado por carlos"
     >
       <h2 className="font-semibold text-xl text-gray-800 leading-tight">
         Catalogo de productos
