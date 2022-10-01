@@ -5,9 +5,11 @@
 
 import React from 'react'
 import {createRoot} from 'react-dom/client'
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
-import { QueryClient, QueryClientProvider, useQuery } from 'react-query'
-import DateFnsUtils from '@date-io/date-fns'
+import {Routes, Route, BrowserRouter} from 'react-router-dom'
+import {QueryClient, QueryClientProvider} from 'react-query'
+import axios from 'axios'
+import '../stylesheets/application'
+import Products from "../pages/Products";
 
 require('@rails/activestorage').start()
 require('channels')
@@ -20,24 +22,22 @@ const queryClient = new QueryClient()
 
 const App = () => {
   return (
-    <Router>
+    <BrowserRouter>
       <Routes>
-        {/*<Route exact path="/" element={<Products/>}/>
-        <Route exact path="/algo" element={<Products/>}/>*/}
+        <Route path="/productos" element={<Products />} />
       </Routes>
-    </Router>
+    </BrowserRouter>
   )
 }
 
 document.addEventListener("DOMContentLoaded", () => {
   const root = createRoot(document.body.appendChild(document.createElement('div')))
-  root.render(
-    <MuiPickersUtilsProvider utils={DateFnsUtils}>
-      <QueryClientProvider client={queryClient}>
-        <App/>
-      </QueryClientProvider>
-    </MuiPickersUtilsProvider>
-  )
+  root.render(/*<MuiPickersUtilsProvider utils={DateFnsUtils}>
+
+    </MuiPickersUtilsProvider>*/
+    <QueryClientProvider client={queryClient}>
+      <App/>
+    </QueryClientProvider>)
 })
 
 // Uncomment to copy all static images under ../images to the output folder and reference
@@ -46,5 +46,3 @@ document.addEventListener("DOMContentLoaded", () => {
 //
 // const images = require.context('../images', true)
 // const imagePath = (name) => images(name, true)
-
-import '../stylesheets/application'
