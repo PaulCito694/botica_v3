@@ -3,7 +3,7 @@ import {createRoot} from 'react-dom/client'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import { QueryClient, QueryClientProvider, useQuery } from 'react-query'
 import DateFnsUtils from '@date-io/date-fns'
-import Products from '../pages/Products'
+import Products from '../pages/admin/Products'
 import axios from 'axios'
 import '../stylesheets/application'
 

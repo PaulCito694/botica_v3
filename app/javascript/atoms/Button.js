@@ -1,20 +1,65 @@
-import Add from "@mui/icons-material/Add";
 import React from "react";
-import {Button as MaterialButton} from "@mui/material";
+import {Button as MaterialButton, createTheme, ThemeProvider} from "@mui/material";
 
-const Button = ({onClick, label, endIcon, type='button', classes, className, color='primary'}) =>{
+const theme = createTheme({
+  components: {
+    MuiButton: {
+      variants: [
+        {
+          props: { variant: 'outlined' },
+          style: {
+            padding: '0 8 0 8',
+            whiteSpace:'nowrap',
+            border: `2px solid black`,
+            borderRadius: '0',
+            color: 'black',
+            '&:hover': {
+              border: `2px solid black`,
+              backgroundColor: 'rgba(0,0,0,.04)',
+            }
+          },
+        },
+        {
+          props: { variant: 'contained' },
+          style: {
+            padding: '0 8 0 8',
+            whiteSpace:'nowrap',
+            backgroundColor: 'black',
+            borderRadius: '0',
+            color: 'white',
+            '&:hover': {
+              backgroundColor: 'black',
+            }
+          },
+        },
+        {
+          props: { variant: 'text' },
+          style: {
+            padding: '0 8 0 8',
+            whiteSpace:'nowrap',
+            borderRadius: '0',
+            color: 'black',
+            '&:hover': {
+              backgroundColor: 'white',
+            }
+          },
+        },
+      ],
+    },
+  },
+});
+
+
+const Button = ({variant='contained', children, ref}) =>{
   return(
-    <MaterialButton
-      variant='contained'
-      onClick={() => onClick ? onClick(true) : null}
-      endIcon={endIcon}
-      type={type}
-      classes={classes}
-      className={className}
-      color={color}
-    >
-      {label}
-    </MaterialButton>
+    <ThemeProvider theme={theme}>
+      <MaterialButton
+        variant={variant}
+        ref={ref}
+      >
+        {children}
+      </MaterialButton>
+    </ThemeProvider>
   )
 }
 export default Button

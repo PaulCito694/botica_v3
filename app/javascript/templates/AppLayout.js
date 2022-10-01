@@ -5,7 +5,7 @@ export default function AppLayout({
   children,
 }) {
   return (
-    <div>
+    <div className='mx-8'>
         <main>{children}</main>
     </div>
   );
