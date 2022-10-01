@@ -3,7 +3,7 @@ import {useField} from "react-final-form";
 import CreatableSelect from 'react-select/creatable';
 import useCrud from "../hooks/useCrud";
 import Button from "./Button";
-import Add from "@mui/icons-material/Add";
+//import Add from "@mui/icons-material/Add";
 
 const AutoCompleteField = ({name, label, className, validate, data = [], addButtonClick}) =>{
   const [value, setValue] = useState(null)
@@ -26,7 +26,7 @@ const AutoCompleteField = ({name, label, className, validate, data = [], addButt
       {label}
       {addButtonClick && <Button
         onClick={() => addButtonClick(true)}
-        endIcon={<Add/>}
+        //endIcon={<Add/>}
         classes={{endIcon:'!m-0'}}
         className='!ml-2 !mb-2'
       />}

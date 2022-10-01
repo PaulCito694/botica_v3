@@ -10,7 +10,7 @@ import useCrud from "../hooks/useCrud"
 import DataTable from "../molecules/DataTable"
 import CustomMaterialMenu from "../molecules/CustomMaterialMenu"
 import Button from "../atoms/Button"
-import Add from "@mui/icons-material/Add"
+//import Add from "@mui/icons-material/Add"
 import {Alert, Snackbar} from "@mui/material"
 import {mix, required, isPrice } from "../validations/Validations"
 
@@ -116,7 +116,7 @@ const Products = () =>  {
                       <Alert severity='error'>Error al crear producto</Alert>
                     </Snackbar>
                     <div className='flex justify-center mb-4 gap-6'>
-                      <Button label='Crear producto' type='submit' endIcon={<Add/>}/>
+                      {/*<Button label='Crear producto' type='submit' endIcon={<Add/>}/>*/}
                       <Button label='Cancelar'  color='warning' onClick={restart}/>
                     </div>
                   </div>
