@@ -25,7 +25,7 @@ set :deploy_to, "/home/apps/qhalifarma"
 # set :pty, true
 
 # Default value for :linked_files is []
-append :linked_files, 'log', 'tmp/pids', 'tmp/cache', 'tmp/sockets', 'tmp/webpacker', 'vendor', '.bundle', 'public/system', 'public/uploads', 'storage'
+#append :linked_files, 'log', 'tmp/pids', 'tmp/cache', 'tmp/sockets', 'tmp/webpacker', 'vendor', '.bundle', 'public/system', 'public/uploads', 'storage'
 
 # Default value for linked_dirs is []
 append :linked_dirs, "log", "tmp/pids", "tmp/cache", "tmp/sockets", "tmp/webpacker", "public/system", "vendor", "storage"
