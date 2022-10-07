@@ -4,6 +4,10 @@ lock "~> 3.17.0"
 set :application, "Qhalifarma"
 set :repo_url, "git@github.com:PaulCito694/botica_v3.git"
 
+set :rbenv_ruby, '2.7.1'
+set :rbenv_type, :user
+set :rbenv_path, '~/.rbenv'
+
 # Default branch is :master
 ask :branch, `git rev-parse --abbrev-ref HEAD`.chomp
 
@@ -21,7 +25,7 @@ set :deploy_to, "/var/www/qhalifarma"
 # set :pty, true
 
 # Default value for :linked_files is []
-append :linked_files, 'log', 'tmp/pids', 'tmp/cache', 'tmp/sockets', 'tmp/webpacker', 'vendor', '.bundle', 'public/system', 'public/uploads', 'storage'
+append :linked_files, 'tmp/pids', 'tmp/cache', 'tmp/sockets', 'tmp/webpacker', 'vendor', '.bundle', 'public/system', 'public/uploads', 'storage'
 
 # Default value for linked_dirs is []
 # append :linked_dirs, "log", "tmp/pids", "tmp/cache", "tmp/sockets", "tmp/webpacker", "public/system", "vendor", "storage"
