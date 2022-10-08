@@ -41,5 +41,9 @@ require 'capistrano/puma'
 require 'capistrano/rails/assets'
 require 'capistrano/rails/migrations'
 
+set :rbenv_ruby, '2.7.1'
+set :rbenv_type, :user
+set :rbenv_path, '~/.rbenv'
+
 # Load custom tasks from `lib/capistrano/tasks` if you have any defined
 Dir.glob("lib/capistrano/tasks/*.rake").each { |r| import r }
