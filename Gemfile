@@ -46,7 +46,10 @@ group :development do
   gem 'capistrano', '~> 3.17', require: false
   gem 'capistrano-rails', '~> 1.6', '>= 1.6.2', require: false
   gem 'capistrano-passenger', '~> 0.2.1'
+  gem 'capistrano3-puma'
   gem 'capistrano-rbenv', '~> 2.2'
+  gem 'capistrano-rbenv-install'
+  gem 'capistrano-logrotate'
   gem 'ed25519', '~> 1.3'
   gem 'bcrypt_pbkdf', '~> 1.1'
   gem 'capistrano-local-precompile', '~> 1.2.0', require: false
