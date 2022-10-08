@@ -47,7 +47,7 @@ group :development do
   gem 'capistrano-rails', '~> 1.6', '>= 1.6.2', require: false
   gem 'capistrano-passenger', '~> 0.2.1'
   gem 'capistrano3-puma'
-  gem 'capistrano-rbenv', '~> 2.2'
+  gem 'capistrano-rbenv'
   gem 'capistrano-rbenv-install'
   gem 'capistrano-logrotate'
   gem 'ed25519', '~> 1.3'
