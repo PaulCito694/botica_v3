@@ -4,7 +4,7 @@ lock "~> 3.17.0"
 set :application, "qhalifarma"
 set :repo_url, "git@github.com:PaulCito694/botica_v3.git"
 
-set :rbenv_ruby, '2.7.1'
+set :rbenv_ruby, '2.7.1p83'
 set :rbenv_type, :user
 set :rbenv_path, '~/.rbenv'
 
