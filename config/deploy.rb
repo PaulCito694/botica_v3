@@ -1,7 +1,7 @@
 # config valid for current version and patch releases of Capistrano
 lock "~> 3.17.0"
 
-set :application, "Qhalifarma"
+set :application, "qhalifarma"
 set :repo_url, "git@github.com:PaulCito694/botica_v3.git"
 
 set :rbenv_ruby, '2.7.1'
@@ -12,7 +12,7 @@ set :rbenv_path, '~/.rbenv'
 ask :branch, `git rev-parse --abbrev-ref HEAD`.chomp
 
 # Default deploy_to directory is /var/www/my_app_name
-set :deploy_to, "/home/apps/qhalifarma"
+set :deploy_to, "/home/deploy/apps/qhalifarma"
 
 # Default value for :format is :airbrussh.
 # set :format, :airbrussh
