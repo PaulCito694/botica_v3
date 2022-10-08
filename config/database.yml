@@ -81,5 +81,5 @@ test:
 production:
   <<: *default
   database: botica_production
-  username: botica
-  password: <%= ENV['BOTICA_DATABASE_PASSWORD'] %>
+  username: deploy
+  password: PaulCito694
