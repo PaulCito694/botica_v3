@@ -6,7 +6,7 @@ set :repo_url, "git@github.com:PaulCito694/botica_v3.git"
 
 set :rbenv_ruby, '2.7.1'
 set :rbenv_type, :user
-set :rbenv_path, '~/home/deploy/.rbenv/'
+set :rbenv_path, '~/home/deploy/.rbenv'
 
 # Default branch is :master
 ask :branch, `git rev-parse --abbrev-ref HEAD`.chomp
