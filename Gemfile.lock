@@ -263,7 +263,7 @@ DEPENDENCIES
   capistrano-logrotate
   capistrano-passenger (~> 0.2.1)
   capistrano-rails (~> 1.6, >= 1.6.2)
-  capistrano-rbenv (~> 2.2)
+  capistrano-rbenv
   capistrano-rbenv-install
   capistrano-webpacker-precompile
   capistrano3-puma
