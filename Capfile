@@ -34,18 +34,5 @@ install_plugin Capistrano::SCM::Git
 # require "capistrano/rails/migrations"
 # require "capistrano/passenger"
 
-require 'capistrano/rbenv'
-require 'capistrano/rbenv_install'
-require 'capistrano/logrotate'
-require 'capistrano/puma'
-require 'capistrano/rails/assets'
-require 'capistrano/rails/migrations'
-
-require 'capistrano/sidekiq'
-
-require 'whenever/capistrano'
-
-install_plugin Capistrano::Puma::Nginx # if you want to upload a nginx site template
-
 # Load custom tasks from `lib/capistrano/tasks` if you have any defined
 Dir.glob("lib/capistrano/tasks/*.rake").each { |r| import r }
