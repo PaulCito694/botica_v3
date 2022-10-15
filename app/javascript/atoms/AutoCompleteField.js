@@ -1,52 +1,142 @@
-import React, {useEffect, useState} from 'react'
-import {useField} from "react-final-form";
-import CreatableSelect from 'react-select/creatable';
-import useCrud from "../hooks/useCrud";
-import Button from "./Button";
-//import Add from "@mui/icons-material/Add";
+import React, { useEffect, useRef, useState } from 'react'
+import clsx from 'clsx'
+import { useField } from 'react-final-form'
+import {Autocomplete, Popover, TextField, Tooltip} from "@mui/material";
+import {ArrowDropDown, ArrowDropUp} from "@mui/icons-material";
 
-const AutoCompleteField = ({name, label, className, validate, data = [], addButtonClick}) =>{
-  const [value, setValue] = useState(null)
-  const {input, meta: {error, touched}} = useField(name,{validate})
-  const {createMutate, createStatus} = useCrud('brands')
-  const options = [{id: '', name: 'Seleccione una opcion'}, ...data]
-
-  const CreateOption= async (newValue)=>{
-    const record = await createMutate({name: newValue})
-    input.onChange(record.data.id)
-    setValue(record.data)
-  }
-  useEffect(()=>setValue(options.find(((val)=>val.id === input.value)))
-  , [input.value])
-
-  if(data === undefined) return null
-
-  return <div className='grid'>
-    <label>
-      {label}
-      {addButtonClick && <Button
-        onClick={() => addButtonClick(true)}
-        //endIcon={<Add/>}
-        classes={{endIcon:'!m-0'}}
-        className='!ml-2 !mb-2'
-      />}
-    </label>
-    <CreatableSelect
-      isClearable
-      isDisabled={createStatus === 'loading'}
-      onChange={newValue => {
-        input.onChange(newValue?.id)
-        setValue(newValue)
-      }}
-      onCreateOption={CreateOption}
-      options={options}
-      value={value}
-      getOptionLabel={item => item.name}
-      getOptionValue={item => item.id}
-      formatCreateLabel={inputValue => `Crear ${inputValue}`}
-    />
-    {touched && <span className='text-red-500'>{error}</span>}
-  </div>
+const sizeMap = {
+  full: 'w-full',
+  '5xl': 'sm:max-w-xl',
+  '4xl': 'sm:max-w-lg',
+  '3xl': 'sm:max-w-md',
+  '2xl': 'sm:max-w-sm',
+  xl: 'sm:max-w-xs',
+  lg: 'sm:max-w-64'
 }
 
+const PopperComponent = ({ disablePortal, anchorEl, open, ...other }) => <div className="bg-red-700" {...other} />
+
+const AutoCompleteField = ({
+  name,
+  label,
+  hint,
+  options,
+  defaultOption,
+  renderOption,
+  size = 'xl',
+  margin = 'normal',
+  onChange,
+  validate,
+  boxClassName,
+  disabled,
+                             noOptionsText = 'No se encontraron resultados',
+  ...props
+}) => {
+  const { input } = useField(name, { validate, ...props })
+  const [anchorEl, setAnchorEl] = useState(null)
+  const [value, setValue] = useState()
+  useEffect(() => {
+    if (defaultOption && !value) {
+      onChange && onChange(defaultOption)
+      setValue(options?.find(({ value }) => value === defaultOption.value.toString()))
+    }
+  }, [anchorEl, defaultOption])
+
+  useEffect(() => {
+    if (input) {
+      setValue(options?.find(({ value }) => value === input.value))
+    }
+  }, [input.value])
+
+  const handleChange = (event, newValue, reason) => {
+    if (event.type === 'keydown' && event.key === 'Backspace' && reason === 'removeOption') return
+
+    input.onChange(newValue.value)
+    onChange && onChange(newValue)
+    onClose()
+  }
+
+  const onClose = () => {
+    if (anchorEl) {
+      anchorEl.focus()
+    }
+    setAnchorEl(null)
+  }
+
+  const handleOpenSelect = event => {
+    setAnchorEl(event.currentTarget)
+  }
+
+  const refDivSelect = useRef()
+  const widthPopper = refDivSelect.current?.clientWidth + 4
+
+  const open = !!anchorEl
+  const id = open ? 'autocomplete-label' : undefined
+  return (
+    <div className={clsx('relative', sizeMap[size])}>
+      {label && (
+        <label htmlFor={`${name}-input`} id={`${name}-label`} className="block font-bold mb-1 min-w-25">
+          {label}
+        </label>
+      )}
+      <button
+        type="button"
+        disabled={disabled}
+        ref={refDivSelect}
+        className={clsx(
+          'flex justify-between border-2 border-gray-800 bg-white w-full pl-4 py-px focus:outline-main disabled:bg-neutral-100 disabled:text-gray-600',
+          boxClassName
+        )}
+        onClick={handleOpenSelect}
+        data-testid="autocomplete-btn"
+      >
+        <span>Selecciona una opción</span>
+        <div className="mr-px my-auto">{open ? <ArrowDropUp /> : <ArrowDropDown />}</div>
+      </button>
+      <Popover
+        id={id}
+        open={open}
+        onClose={onClose}
+        anchorEl={anchorEl}
+        classes={{
+          paper: 'border-solid border-l-2 border-r-2 border-b-2 border-t-1 border-gray-800 bg-white w-full'
+        }}
+        PaperProps={{ style: { width: widthPopper } }}
+        anchorOrigin={{
+          vertical: 'bottom',
+          horizontal: 'center'
+        }}
+        transformOrigin={{
+          horizontal: 'center',
+          vertical: 'top'
+        }}
+      >
+        <Autocomplete
+          open
+          disabled={disabled}
+          id={`${name}-input`}
+          noOptionsText="No se encontraron resultados"
+          classes={{ paper: 'm-0', popper: 'max-w-full', listbox: 'max-h-72' }}
+          getOptionLabel={option => option.name}
+          options={options}
+          PopperComponent={PopperComponent}
+          onChange={handleChange}
+          renderInput={params => (
+            <TextField
+              autoFocus
+              ref={params.InputProps.ref}
+              inputProps={params.inputProps}
+              InputProps={{
+                disableUnderline: true,
+                className: 'pl-2 rounded-md bg-blue-300',
+                //startAdornment: <Search classes={{ root: 'text-neutral-500' }} />
+              }}
+              className={clsx('p-3 w-full')}
+            />
+          )}
+        />
+      </Popover>
+    </div>
+  )
+}
 export default AutoCompleteField
