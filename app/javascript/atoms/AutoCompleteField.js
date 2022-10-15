@@ -2,7 +2,8 @@ import React, { useEffect, useRef, useState } from 'react'
 import clsx from 'clsx'
 import { useField } from 'react-final-form'
 import {Autocomplete, Popover, TextField, Tooltip} from "@mui/material";
-import {ArrowDropDown, ArrowDropUp} from "@mui/icons-material";
+import {Add, ArrowDropDown, ArrowDropUp} from "@mui/icons-material";
+import Button from "./Button";
 
 const sizeMap = {
   full: 'w-full',
@@ -28,8 +29,9 @@ const AutoCompleteField = ({
   onChange,
   validate,
   boxClassName,
+  addButtonClick,
   disabled,
-                             noOptionsText = 'No se encontraron resultados',
+  noOptionsText = 'No se encontraron resultados',
   ...props
 }) => {
   const { input } = useField(name, { validate, ...props })
@@ -74,11 +76,16 @@ const AutoCompleteField = ({
   const id = open ? 'autocomplete-label' : undefined
   return (
     <div className={clsx('relative', sizeMap[size])}>
-      {label && (
-        <label htmlFor={`${name}-input`} id={`${name}-label`} className="block font-bold mb-1 min-w-25">
-          {label}
-        </label>
-      )}
+      <div className='flex flex-row'>
+        {label && (
+          <label htmlFor={`${name}-input`} id={`${name}-label`} className="block font-bold mb-1 min-w-25">
+            {label}
+          </label>
+        )}
+        {addButtonClick && <Button
+          onClick={() => addButtonClick(true)}
+        >{<Add/>}</Button>}
+      </div>
       <button
         type="button"
         disabled={disabled}
