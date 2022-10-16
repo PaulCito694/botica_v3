@@ -2,7 +2,7 @@ import DialogCrud from "./DialogCrud";
 import React, {useState} from "react";
 import useCrud from "../hooks/useCrud";
 
-const Crud = ({setOpenModal, url}) => {
+const Crud = ({setOpenModal, url, titleModal}) => {
   const {data, status, deleteMutate, updateMutate, createMutate} = useCrud(url)
   const [record, setRecord] = useState(null)
 
@@ -24,6 +24,7 @@ const Crud = ({setOpenModal, url}) => {
       onSubmit={onSubmit}
       setOpenBrandModal={setOpenModal}
       onUpdate={onUpdate}
+      titleModal={titleModal}
       data={data}
     />
   )

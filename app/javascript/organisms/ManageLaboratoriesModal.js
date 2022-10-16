@@ -1,13 +1,14 @@
 import React from "react";
 import Crud from "../molecules/Crud";
 
-const Laboratories = ({setOpenLaboratoryModal}) => {
+const ManageLaboratoriesModal = ({setOpenLaboratoryModal}) => {
   return (
     <Crud
       setOpenModal={setOpenLaboratoryModal}
       url='laboratories'
+      titleModal='Gestion de Laboratorios'
     />
   )
 }
 
-export default Laboratories
+export default ManageLaboratoriesModal
