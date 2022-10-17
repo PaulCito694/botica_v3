@@ -76,7 +76,7 @@ const Products = () =>  {
     >
       <h2 className="font-semibold text-xl text-gray-800 leading-tight">
         Catalogo de productos
-        {true && <ManageBrandsModal setOpenBrandModal={setOpenBrandModal}/>}
+        {openBrandModal && <ManageBrandsModal setOpenBrandModal={setOpenBrandModal}/>}
         {openCategoryModal && <ManageCategoriesModal setOpenCategoryModal={setOpenCategoryModal}/>}
         {openLaboratoryModal && <ManageLaboratoriesModal setOpenLaboratoryModal={setOpenLaboratoryModal}/>}
       </h2>
