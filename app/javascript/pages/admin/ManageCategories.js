@@ -1,7 +1,17 @@
 import React from "react";
-import BasicForm from "../molecules/BasicForm";
+import BasicForm from "../../molecules/BasicForm";
+import useCrud from "../../hooks/useCrud";
 
 const ManageCategories = () => {
+    const {data, status, deleteMutate, updateMutate, createMutate} = useCrud('categories')
+    const onSubmit = (values) =>{
+        try{
+            createMutate(values)
+        }catch (err){
+            console.debug(err)
+        }
+    }
+
     return (
         <div className='justify-center flex pt-10'>
             <div className={'w-1/2'}>
@@ -10,7 +20,7 @@ const ManageCategories = () => {
                         Registro de Categorias
                     </div>
                     <div className='pt-5 pb-5 pl-4 pr-4'>
-                        <BasicForm initialValues={{}} onSubmit={() => null}/>
+                        <BasicForm initialValues={{}} onSubmit={onSubmit}/>
                     </div>
                 </div>
             </div>

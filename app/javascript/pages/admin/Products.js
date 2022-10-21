@@ -116,8 +116,9 @@ const Products = () =>  {
                       <Alert severity='error'>Error al crear producto</Alert>
                     </Snackbar>
                     <div className='flex justify-center mb-4 gap-6'>
-                      {/*<Button label='Crear producto' type='submit' endIcon={<Add/>}/>*/}
-                      <Button label='Cancelar'  color='warning' onClick={restart}/>
+                      {/*<Button label='Crear producto' type='submit' children={'Guardar'} endIcon={<Add/>}/>*/}
+                      <Button label='Crear producto' type='submit' children={'Guardar'} />
+                      <Button label='Cancelar'  color='warning' children={'Cancelar'} onClick={restart}/>
                     </div>
                   </div>
                   <DataTable

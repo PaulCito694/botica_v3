@@ -6,8 +6,9 @@ import DateFnsUtils from '@date-io/date-fns'
 import Products from '../pages/admin/Products'
 import axios from 'axios'
 import '../stylesheets/application'
-import ManageLaboratories from "../organisms/ManageLaboratories";
-import ManageCategories from "../organisms/ManageCategories";
+import ManageLaboratories from "../pages/admin/ManageLaboratories";
+import ManageCategories from "../pages/admin/ManageCategories";
+import ManageBrands from "../pages/admin/ManageBrands";
 
 require('@rails/activestorage').start()
 require('channels')
@@ -25,7 +26,7 @@ const App = () => {
         <Route path="/" element={<Products />} />
         <Route path="/gestion_laboratorios" element={<ManageLaboratories />} />
         <Route path="/gestion_categorias" element={<ManageCategories />} />
-        <Route path="/gestion_marcas" element={<ManageCategories />} />
+        <Route path="/gestion_marcas" element={<ManageBrands />} />
       </Routes>
     </BrowserRouter>
   )
