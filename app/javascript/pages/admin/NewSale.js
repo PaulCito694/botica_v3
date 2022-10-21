@@ -7,13 +7,13 @@ import {Form} from "react-final-form"
 import TextFieldField from "../../atoms/TextFieldField"
 import AutoCompleteField from "../../atoms/AutoCompleteField"
 import useCrud from "../../hooks/useCrud"
-import DataTable from "../../molecules/DataTable"
 import CustomMaterialMenu from "../../molecules/CustomMaterialMenu"
 import Button from "../../atoms/Button"
-import Add from "@mui/icons-material/Add"
-import {Alert, Snackbar} from "@mui/material"
-import {mix, required, isPrice } from "../../validations/Validations"
+import {required } from "../../validations/Validations"
 import DataTableWithEditRow from "../../molecules/DataTableWithEditRow";
+import arrayMutators from "final-form-arrays";
+import UneditableTextField from "../../atoms/UneditableTextField";
+import {useNavigate} from "react-router-dom";
 
 const filterFunction = (item, filterText) => {
   const names =  item.name?.toLowerCase().includes(filterText.toLowerCase())
@@ -22,11 +22,15 @@ const filterFunction = (item, filterText) => {
 }
 
 const NewSale = () =>  {
+  const navigate = useNavigate()
   const [record, setRecord] = useState(null)
   const [openBrandModal, setOpenBrandModal] = useState(false)
   const [openCategoryModal, setOpenCategoryModal] = useState(false)
   const [openLaboratoryModal, setOpenLaboratoryModal] = useState(false)
-  const {data: products, status, deleteMutate, updateMutate, createMutate} = useCrud('products')
+  const {create} = useCrud('sales')
+  const {mutateAsync: createMutate} = create({onSuccess: () => navigate('/ventas')})
+  const {data: document_types = []} = useCrud('document_types')
+  const {data: laboratories = []} = useCrud('laboratories')
 
   const columns = [
     {name: 'Nombre', selector: (row) => row.name, width: '300px',},
@@ -57,17 +61,6 @@ const NewSale = () =>  {
 
   const onUpdate = (values) => setRecord(values)
 
-
-  const onSubmit = async (values) => {
-    try{
-      record ? updateMutate(values) : createMutate(values)
-      setRecord(null)
-    }catch (err){
-      //console.debug(err)
-    }
-  }
-
-  if (status !== 'success') return null
   return (
     <AppLayout
       title="Catalogo de productos editado por carlos"
@@ -81,7 +74,44 @@ const NewSale = () =>  {
       <div className="py-12 bg-gray-200">
         <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
           <div className="bg-white overflow-hidden shadow-xl sm:rounded-lg">
-            <DataTableWithEditRow/>
+            <Form
+              onSubmit={createMutate}
+              mutators={{
+                ...arrayMutators
+              }}
+              initialValues={{
+                series: 'prod',
+                correlative: '001',
+                legend: 'Treinta nuevos soles con 50 centavos',
+                total_amount: 0
+            }}
+              subscription={{values: true}}
+              render={({handleSubmit})=>(
+                <form onSubmit={handleSubmit} className='m-4'>
+                  <div className='flex flex-row gap-6 mb-4'>
+                    <TextFieldField name='series' label='Serie' validate={required()}/>
+                    <TextFieldField name='correlative' label='Correlativo' validate={required()}/>
+                    <AutoCompleteField
+                      name='document_type_id'
+                      label='Tipo de documento'
+                      validate={required()}
+                      options={document_types}
+                      boxClassName='py-3'
+                    />
+                    <TextFieldField name='document_number' label='Numero de documento' validate={required()}/>
+                  </div>
+                  <div className='flex flex-row justify-end gap-6'>
+                    <UneditableTextField inputClassName='border border-solid border-black rounded-md py-3 px-1' name='legend' label='Legenda' validate={required()}/>
+                    <UneditableTextField inputClassName='border border-solid border-black rounded-md py-3 px-1' name='total_amount' label='Total' validate={required()}/>
+                  </div>
+                  <DataTableWithEditRow laboratories={laboratories}/>
+                  <div className='flex flex-row justify-center'>
+                    <Button type='submit'>Guardar venta</Button>
+                  </div>
+                </form>
+              )}
+            >
+            </Form>
           </div>
         </div>
       </div>

@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react'
 import clsx from 'clsx'
 import { useField } from 'react-final-form'
 import {Autocomplete, Popover, TextField, Tooltip} from "@mui/material";
-import {Add, ArrowDropDown, ArrowDropUp} from "@mui/icons-material";
+import {Add, ArrowDropDown, ArrowDropUp, Search} from "@mui/icons-material";
 import Button from "./Button";
 
 const sizeMap = {
@@ -46,14 +46,14 @@ const AutoCompleteField = ({
 
   useEffect(() => {
     if (input) {
-      setValue(options?.find(({ value }) => value === input.value))
+      setValue(options?.find(({ id}) => id === input.value))
     }
   }, [input.value])
 
   const handleChange = (event, newValue, reason) => {
     if (event.type === 'keydown' && event.key === 'Backspace' && reason === 'removeOption') return
 
-    input.onChange(newValue.value)
+    input.onChange(newValue.id)
     onChange && onChange(newValue)
     onClose()
   }
@@ -91,13 +91,13 @@ const AutoCompleteField = ({
         disabled={disabled}
         ref={refDivSelect}
         className={clsx(
-          'flex justify-between border-2 border-gray-800 bg-white w-full pl-4 py-px focus:outline-main disabled:bg-neutral-100 disabled:text-gray-600',
+          'flex justify-between border-2 border-gray-300 bg-white w-full pl-4 focus:outline-main disabled:bg-neutral-100 disabled:text-gray-600 rounded-md',
           boxClassName
         )}
         onClick={handleOpenSelect}
         data-testid="autocomplete-btn"
       >
-        <span>Selecciona una opción</span>
+        <span>{value ? value.name : 'Selecciona una opción'}</span>
         <div className="mr-px my-auto">{open ? <ArrowDropUp /> : <ArrowDropDown />}</div>
       </button>
       <Popover
@@ -135,8 +135,8 @@ const AutoCompleteField = ({
               inputProps={params.inputProps}
               InputProps={{
                 disableUnderline: true,
-                className: 'pl-2 rounded-md bg-blue-300',
-                //startAdornment: <Search classes={{ root: 'text-neutral-500' }} />
+                className: 'pl-2 rounded-md bg-gray-200',
+                startAdornment: <Search classes={{ root: 'text-neutral-500' }} />
               }}
               className={clsx('p-3 w-full')}
             />

@@ -94,8 +94,6 @@ const Products = () =>  {
                       <TextFieldField name='components' label='Componentes'/>
                       <TextFieldField name='location' label='Ubicacion' />
                       <TextFieldField name='digemid_code' label='Codigo DIGEMID'/>
-                      <TextFieldField name='wholesale_price' label='Precio por mayor' validate={mix(required(), isPrice())}/>
-                      <TextFieldField name='retail_price' label='Precio por menor' validate={mix(required(), isPrice())}/>
                       <AutoCompleteField name='brand_id' label='Marca' options={brands} addButtonClick={setOpenBrandModal} validate={required()}/>
                       <AutoCompleteField name='laboratory_id' label='Laboratorio' options={laboratories} addButtonClick={setOpenLaboratoryModal} validate={required()}/>
                       <AutoCompleteField name='category_id' label='Categoria' options={categories} addButtonClick={setOpenCategoryModal} validate={required()}/>
