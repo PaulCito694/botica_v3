@@ -2,14 +2,13 @@ class Admin::V1::SalesController < ApplicationController
   before_action :set_product, only: [:update, :destroy]
 
   def index
-    @products = Product.all
+    @sales = Sale.all
   end
 
   def create
     sale = Sale.create(sale_params)
     debugger
-    sale.save!
-    render json: {}, status: :ok
+    render json: {}, status: :ok if sale.save!
   end
 
   def update

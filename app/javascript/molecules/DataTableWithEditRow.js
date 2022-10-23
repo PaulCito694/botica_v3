@@ -6,6 +6,7 @@ import useCrud from "../hooks/useCrud"
 import AutoCompleteField from "../atoms/AutoCompleteField";
 import UneditableTextField from "../atoms/UneditableTextField";
 import { OnChange } from 'react-final-form-listeners'
+import {required} from "../validations/Validations";
 
 const DataTableWithEditRow = ({laboratories}) => {
   const {data: products, status} = useCrud('products')
@@ -37,7 +38,6 @@ const DataTableWithEditRow = ({laboratories}) => {
           if(!existItem)
             fields.push(
               {
-                id: item.id,
                 name: item.name,
                 laboratory: item.laboratory?.name,
                 suggested_price: 50,
@@ -45,6 +45,7 @@ const DataTableWithEditRow = ({laboratories}) => {
                 stock: 10,
                 presentation: 'Ampollas',
                 expiration_date: '2022-10-30',
+                product_id: item.id
               }
             )
         }
@@ -67,15 +68,14 @@ const DataTableWithEditRow = ({laboratories}) => {
         <tbody>
         {fields.map((name, index)=>(
           <tr className='gap-6 border-gray-500 border-2' key={index}>
-            <Field name='id' component='input' className='hidden' />
             <td><UneditableTextField name={`${name}.name`}/></td>
-            <td><AutoCompleteField name={`${name}.laboratory_id`} options={laboratories}/></td>
+            <td><AutoCompleteField name={`${name}.laboratory_id`} options={laboratories} validate={required()}/></td>
             <td><UneditableTextField name={`${name}.suggested_price`}/></td>
-            <td><TextFieldField name={`${name}.final_price`}/></td>
+            <td><TextFieldField name={`${name}.final_price`} validate={required()}/></td>
             <td><UneditableTextField name={`${name}.stock`}/></td>
             <td><UneditableTextField name={`${name}.presentation`}/></td>
             <td><UneditableTextField name={`${name}.expiration_date`}/></td>
-            <td><TextFieldField name={`${name}.quantity`}/></td>
+            <td><TextFieldField name={`${name}.quantity`} validate={required()}/></td>
             <OnChange name='sale_details_attributes'>
               {(value) => calculateTotalAmount(value)}
             </OnChange>
