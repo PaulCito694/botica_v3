@@ -10,7 +10,7 @@ import useCrud from "../../hooks/useCrud"
 import DataTable from "../../molecules/DataTable"
 import CustomMaterialMenu from "../../molecules/CustomMaterialMenu"
 import Button from "../../atoms/Button"
-/*import Add from "@mui/icons-material/Add"*/
+import Add from "@mui/icons-material/Add"
 import {Alert, Snackbar} from "@mui/material"
 import {mix, required, isPrice } from "../../validations/Validations"
 
@@ -63,6 +63,7 @@ const Products = () =>  {
 
   const onSubmit = async (values) => {
     try{
+      console.debug("a");
       record ? updateMutate(values) : createMutate(values)
       setRecord(null)
     }catch (err){

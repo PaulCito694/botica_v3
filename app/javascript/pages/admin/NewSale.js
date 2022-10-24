@@ -1,8 +1,5 @@
 import React, {useState} from 'react'
 import AppLayout from '../../templates/AppLayout'
-import Brands from "../../organisms/Brands"
-import Categories from "../../organisms/Categories"
-import Laboratories from "../../organisms/Laboratories"
 import {Form} from "react-final-form"
 import TextFieldField from "../../atoms/TextFieldField"
 import AutoCompleteField from "../../atoms/AutoCompleteField"
@@ -14,6 +11,10 @@ import DataTableWithEditRow from "../../molecules/DataTableWithEditRow";
 import arrayMutators from "final-form-arrays";
 import UneditableTextField from "../../atoms/UneditableTextField";
 import {useNavigate} from "react-router-dom";
+import ManageBrandsModal from "../../organisms/ManageBrandsModal";
+import ManageCategoriesModal from "../../organisms/ManageCategoriesModal";
+import ManageLaboratoriesModal from "../../organisms/ManageLaboratoriesModal";
+
 
 const filterFunction = (item, filterText) => {
   const names =  item.name?.toLowerCase().includes(filterText.toLowerCase())
@@ -67,9 +68,9 @@ const NewSale = () =>  {
     >
       <h2 className="font-semibold text-xl text-gray-800 leading-tight">
         Nueva venta
-        {openBrandModal && <Brands setOpenBrandModal={setOpenBrandModal}/>}
-        {openCategoryModal && <Categories setOpenCategoryModal={setOpenCategoryModal}/>}
-        {openLaboratoryModal && <Laboratories setOpenLaboratoryModal={setOpenLaboratoryModal}/>}
+        {openBrandModal && <ManageBrandsModal setOpenBrandModal={setOpenBrandModal}/>}
+        {openCategoryModal && <ManageCategoriesModal setOpenCategoryModal={setOpenCategoryModal}/>}
+        {openLaboratoryModal && <ManageLaboratoriesModal setOpenLaboratoryModal={setOpenLaboratoryModal}/>}
       </h2>
       <div className="py-12 bg-gray-200">
         <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
