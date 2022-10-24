@@ -7,6 +7,7 @@ class Product < ApplicationRecord
   belongs_to :laboratory
   has_many :purchase_details
   has_many :price_by_presentations
+  has_many :sale_details
 
   private
 

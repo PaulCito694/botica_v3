@@ -10,6 +10,8 @@ Rails.application.routes.draw do
       resources :laboratories
       resources :categories
       resources :products, format: "json"
+      resources :sales, format: "json"
+      resources :document_types, format: "json"
     end
 
     get '*path', to: "home#index", constraints: lambda { |req|

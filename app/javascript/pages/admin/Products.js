@@ -28,7 +28,8 @@ const Products = () =>  {
   const {data: brands} = useCrud('brands')
   const {data: laboratories} = useCrud('laboratories')
   const {data: categories} = useCrud('categories')
-  const {data: products, status, deleteMutate, updateMutate, createMutate} = useCrud('products')
+  const {data: products, status, deleteMutate, updateMutate, create} = useCrud('products')
+  const { mutateAsync: createMutate } = create()
 
   const columns = [
     {name: 'Nombre', selector: (row) => row.name, width: '300px',},
@@ -94,11 +95,9 @@ const Products = () =>  {
                       <TextFieldField name='components' label='Componentes'/>
                       <TextFieldField name='location' label='Ubicacion' />
                       <TextFieldField name='digemid_code' label='Codigo DIGEMID'/>
-                      <TextFieldField name='wholesale_price' label='Precio por mayor' validate={mix(required(), isPrice())}/>
-                      <TextFieldField name='retail_price' label='Precio por menor' validate={mix(required(), isPrice())}/>
-                      <AutoCompleteField name='brand_id' label='Marca' data={brands} addButtonClick={setOpenBrandModal} validate={required()}/>
-                      <AutoCompleteField name='laboratory_id' label='Laboratorio' data={laboratories} addButtonClick={setOpenLaboratoryModal} validate={required()}/>
-                      <AutoCompleteField name='category_id' label='Categoria' data={categories} addButtonClick={setOpenCategoryModal} validate={required()}/>
+                      <AutoCompleteField name='brand_id' label='Marca' options={brands} addButtonClick={setOpenBrandModal} validate={required()}/>
+                      <AutoCompleteField name='laboratory_id' label='Laboratorio' options={laboratories} addButtonClick={setOpenLaboratoryModal} validate={required()}/>
+                      <AutoCompleteField name='category_id' label='Categoria' options={categories} addButtonClick={setOpenCategoryModal} validate={required()}/>
                     </div>
                     <Snackbar
                       open={submitSucceeded}
@@ -116,13 +115,12 @@ const Products = () =>  {
                       <Alert severity='error'>Error al crear producto</Alert>
                     </Snackbar>
                     <div className='flex justify-center mb-4 gap-6'>
-                      {/*<Button label='Crear producto' type='submit' children={'Guardar'} endIcon={<Add/>}/>*/}
-                      <Button label='Crear producto' type='submit' children={'Guardar'} />
-                      <Button label='Cancelar'  color='warning' children={'Cancelar'} onClick={restart}/>
+                      <Button type='submit' endIcon={<Add/>}>Crear producto</Button>
+                      <Button color='warning' onClick={restart}>Cancelar</Button>
                     </div>
                   </div>
                   <DataTable
-                    data={products.data}
+                    data={products}
                     columns={columns}
                     filterFunction={filterFunction}
                     className='bg-slate-400'

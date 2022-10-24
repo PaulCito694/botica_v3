@@ -18,11 +18,14 @@ const useCrud = (url) => {
     onSuccess: () => queryClient.invalidateQueries(['records', url])
   })
 
-  const {mutateAsync: createMutate, status: createStatus} =  useMutation(['create', url], values => createRecord(values, url),{
-    onSuccess: () => queryClient.invalidateQueries(['records', url])
+  const create = (params) => useMutation(['create', url], values => createRecord(values, url),{
+    onSuccess: () => {
+      params.onSuccess()
+      queryClient.invalidateQueries(['records', url])
+    }
   })
 
-  return {deleteMutate, updateMutate, createMutate, createStatus, data, status}
+  return {deleteMutate, updateMutate, create, data, status}
 }
 
 export default useCrud

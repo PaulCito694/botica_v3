@@ -79,7 +79,7 @@ test:
 #     url: <%= ENV['DATABASE_URL'] %>
 #
 production:
-  <<: *default
-  database: botica_production
-  username: deploy
-  password: PaulCito694
+  host: ec2-54-160-200-167.compute-1.amazonaws.com
+  database: d10d9dqr0ri7bo
+  username: okhpggghixhvye
+  password: 9a3c80bc3f845c698937fd9aa5008e2ea8f6b408d0acc85b402a16fb1b04ee3a

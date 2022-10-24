@@ -78,6 +78,7 @@ const DataTable = ({data, columns, filterFunction }) => {
       fixedHeaderScrollHeight="300px"
       customStyles={customStyles}
       responsive={true}
+      
     />
   )
 }

@@ -3,7 +3,8 @@ import React, {useState} from "react";
 import useCrud from "../hooks/useCrud";
 
 const Crud = ({setOpenModal, url, titleModal}) => {
-  const {data, status, deleteMutate, updateMutate, createMutate} = useCrud(url)
+  const {data, status, deleteMutate, updateMutate, create} = useCrud(url)
+  const {mutateAsync: createMutate} = create()
   const [record, setRecord] = useState(null)
 
   const onUpdate = (values) => setRecord(values)

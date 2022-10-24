@@ -50,12 +50,15 @@ const theme = createTheme({
 });
 
 
-const Button = ({variant='contained', children, ref}) =>{
+const Button = ({variant='contained', children, ref, onClick= ()=>null, className, type }) =>{
   return(
     <ThemeProvider theme={theme}>
       <MaterialButton
+        className={className}
+        onClick={onClick}
         variant={variant}
         ref={ref}
+        type={type}
       >
         {children}
       </MaterialButton>
