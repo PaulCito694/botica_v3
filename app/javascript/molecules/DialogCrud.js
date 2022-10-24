@@ -5,6 +5,7 @@ import {required} from "../validations/Validations";
 import React from "react";
 import DataTable from "../molecules/DataTable";
 import CustomMaterialMenu from "./CustomMaterialMenu";
+import BasicForm from "./BasicForm";
 
 const DialogCrud = ({
                       setOpenBrandModal,
@@ -12,6 +13,7 @@ const DialogCrud = ({
                       brand,
                       onDelete,
                       onUpdate,
+    titleModal,
   data
 }) =>{
 
@@ -43,50 +45,13 @@ const DialogCrud = ({
     maxWidth='md'
     fullWidth
   >
-    <DialogTitle>Gestion de Marcas</DialogTitle>
+    <DialogTitle> {titleModal} </DialogTitle>
     <DialogContent>
-      <Form
-        onSubmit={onSubmit}
-        initialValues={{
-          name: brand?brand.name:null,
-          description: brand?brand.description:null,
-          id: brand?brand.id:null
-        }}
-        render={({handleSubmit, form: {restart},submitSucceeded,submitFailed}) => (
-          <>
-            <form onSubmit={handleSubmit}>
-              <div className="grid grid-cols-1 gap-4 mb-4">
-                <TextFieldField name='name' label='Nombre' validate={required()} className='mb-6'/>
-                <TextFieldField name='description' label='Descripcion'/>
-              </div>
-              <div className='flex justify-center gap-4'>
-                <Button type="submit" variant='contained'>Guardar</Button>
-                <Button variant='outlined' onClick={restart}>Cancelar</Button>
-              </div>
-              <Snackbar
-                open={submitSucceeded}
-                autoHideDuration={3000}
-                anchorOrigin={{vertical: 'bottom', horizontal: 'right'}}
-                onClose={restart}
-              >
-                <Alert severity='success'>Creado correctamente</Alert>
-              </Snackbar>
-              <Snackbar
-                open={submitFailed}
-                autoHideDuration={3000}
-                anchorOrigin={{vertical: 'bottom', horizontal: 'right'}}
-              >
-                <Alert severity='error'>Ocurrio un error con la ultima accion</Alert>
-              </Snackbar>
-            </form>
-            <DataTable
-              data={data}
-              columns={columns}
-              filterFunction={filterFunction}
-            />
-          </>
-        )}
-      />
+        <BasicForm initialValues={{
+            name: brand?brand.name:null,
+            description: brand?brand.description:null,
+            id: brand?brand.id:null
+        }} onSubmit={onSubmit} data={data} filterFunction={filterFunction} columns={columns} />
     </DialogContent>
     <DialogActions>
     </DialogActions>

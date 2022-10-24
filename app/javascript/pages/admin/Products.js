@@ -1,8 +1,8 @@
 import React, {useState} from 'react'
 import AppLayout from '../../templates/AppLayout'
-import Brands from "../../organisms/Brands"
-import Categories from "../../organisms/Categories"
-import Laboratories from "../../organisms/Laboratories"
+import ManageBrandsModal from "../../organisms/ManageBrandsModal"
+import ManageCategoriesModal from "../../organisms/ManageCategoriesModal"
+import ManageLaboratoriesModal from "../../organisms/ManageLaboratoriesModal"
 import {Form} from "react-final-form"
 import TextFieldField from "../../atoms/TextFieldField"
 import AutoCompleteField from "../../atoms/AutoCompleteField"
@@ -63,6 +63,7 @@ const Products = () =>  {
 
   const onSubmit = async (values) => {
     try{
+      console.debug("a");
       record ? updateMutate(values) : createMutate(values)
       setRecord(null)
     }catch (err){
@@ -77,9 +78,9 @@ const Products = () =>  {
     >
       <h2 className="font-semibold text-xl text-gray-800 leading-tight">
         Catalogo de productos
-        {openBrandModal && <Brands setOpenBrandModal={setOpenBrandModal}/>}
-        {openCategoryModal && <Categories setOpenCategoryModal={setOpenCategoryModal}/>}
-        {openLaboratoryModal && <Laboratories setOpenLaboratoryModal={setOpenLaboratoryModal}/>}
+        {openBrandModal && <ManageBrandsModal setOpenBrandModal={setOpenBrandModal}/>}
+        {openCategoryModal && <ManageCategoriesModal setOpenCategoryModal={setOpenCategoryModal}/>}
+        {openLaboratoryModal && <ManageLaboratoriesModal setOpenLaboratoryModal={setOpenLaboratoryModal}/>}
       </h2>
       <div className="py-12 bg-gray-200">
         <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">

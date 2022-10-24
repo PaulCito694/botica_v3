@@ -15,6 +15,7 @@ const Products = () =>{
         <div className='relative'>
           <Button></Button>
           <img src={images[imageIndex]}/>
+            <label>Hola mundo</label>
         </div>
       </div>
     </>

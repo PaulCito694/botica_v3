@@ -8,6 +8,9 @@ import axios from 'axios'
 import '../stylesheets/application'
 import Sales from "../pages/admin/Sales";
 import NewSale from "../pages/admin/NewSale";
+import ManageLaboratories from "../pages/admin/ManageLaboratories";
+import ManageCategories from "../pages/admin/ManageCategories";
+import ManageBrands from "../pages/admin/ManageBrands";
 
 require('@rails/activestorage').start()
 require('channels')
@@ -25,6 +28,9 @@ const App = () => {
         <Route path="/" element={<Products />} />
         <Route path="/ventas" element={<Sales />} />
         <Route path="/nueva-venta" element={<NewSale />} />
+        <Route path="/gestion_laboratorios" element={<ManageLaboratories />} />
+        <Route path="/gestion_categorias" element={<ManageCategories />} />
+        <Route path="/gestion_marcas" element={<ManageBrands />} />
       </Routes>
     </BrowserRouter>
   )

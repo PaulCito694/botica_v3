@@ -2,7 +2,7 @@ import React from 'react'
 import LogoBotica from '../images/logo_Botica_QF.png'
 import SplitButton from "../atoms/SplitButton";
 import Search from "../molecules/Search";
-import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
+/*import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';*/
 import Button from "../atoms/Button";
 
 const Header = () => {
@@ -16,7 +16,7 @@ const Header = () => {
           </SplitButton>
           <Search/>
           <div className='flex items-center'>
-            <AddShoppingCartIcon/>
+            {/*<AddShoppingCartIcon/>*/}
           </div>
           <div className='gap-4 flex flex-row'>
             <Button variant='outlined'>Iniciar Sesion</Button>
