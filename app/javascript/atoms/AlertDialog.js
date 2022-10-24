@@ -5,15 +5,12 @@ import DialogActions from '@mui/material/DialogActions'
 import DialogContent from '@mui/material/DialogContent'
 import DialogContentText from '@mui/material/DialogContentText'
 import DialogTitle from '@mui/material/DialogTitle'
-import {useState} from "react"
 
-const AlertDialog = ({title, message, setState, idRecord}:any) => {
-  const [open, setOpen] = useState(false)
+const AlertDialog = ({title, message, acceptOnClick, cancelOnClick, idRecord}) => {
 
   return (
     <Dialog
-      open={open}
-      onClose={() => setOpen(false)}
+      open={true}
       aria-labelledby="alert-dialog-title"
       aria-describedby="alert-dialog-description"
     >
@@ -26,19 +23,11 @@ const AlertDialog = ({title, message, setState, idRecord}:any) => {
         </DialogContentText>
       </DialogContent>
       <DialogActions>
-        <Button
-          onClick={()=>{
-            setState(idRecord)
-            setOpen(false)
-          }}
-        >
+        <Button onClick={()=>acceptOnClick()}>
           Aceptar
         </Button>
         <Button
-          onClick={()=>{
-            setState(idRecord)
-            setOpen(false)
-          }}
+          onClick={() => cancelOnClick()}
           autoFocus
         >
           Cancelar

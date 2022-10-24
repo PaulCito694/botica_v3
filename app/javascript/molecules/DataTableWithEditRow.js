@@ -9,7 +9,7 @@ import { OnChange } from 'react-final-form-listeners'
 import {required} from "../validations/Validations";
 
 const DataTableWithEditRow = ({laboratories}) => {
-  const {data: products, status} = useCrud('products')
+  const {records: products, statusRecords} = useCrud('products')
   const {fields} = useFieldArray('sale_details_attributes')
   const {change} = useForm()
 
@@ -23,7 +23,7 @@ const DataTableWithEditRow = ({laboratories}) => {
     change('total_amount', total)
   }
 
-  if(status !== 'success') return null
+  if(statusRecords !== 'success') return null
 
   return (
     <div className='mb-6'>
@@ -38,7 +38,7 @@ const DataTableWithEditRow = ({laboratories}) => {
           if(!existItem)
             fields.push(
               {
-                name: item.name,
+                product_name: item.name,
                 laboratory: item.laboratory?.name,
                 suggested_price: 50,
                 final_price: 50,
@@ -68,7 +68,7 @@ const DataTableWithEditRow = ({laboratories}) => {
         <tbody>
         {fields.map((name, index)=>(
           <tr className='gap-6 border-gray-500 border-2' key={index}>
-            <td><UneditableTextField name={`${name}.name`}/></td>
+            <td><UneditableTextField name={`${name}.product_name`}/></td>
             <td><AutoCompleteField name={`${name}.laboratory_id`} options={laboratories} validate={required()}/></td>
             <td><UneditableTextField name={`${name}.suggested_price`}/></td>
             <td><TextFieldField name={`${name}.final_price`} validate={required()}/></td>

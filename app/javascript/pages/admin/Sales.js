@@ -3,19 +3,22 @@ import AppLayout from '../../templates/AppLayout'
 import {Form} from "react-final-form"
 import useCrud from "../../hooks/useCrud"
 import Button from "../../atoms/Button"
-import Add from "@mui/icons-material/Add"
 import {Box, Collapse, IconButton, Table, TableBody, TableCell, TableHead, TableRow} from "@mui/material";
-import {KeyboardArrowDown, KeyboardArrowUp} from "@mui/icons-material";
-import useToggle from "../../hooks/useToggle";
-import {useNavigate} from "react-router-dom";
+import {KeyboardArrowDown, KeyboardArrowUp, Edit, Delete} from "@mui/icons-material";
+import useToggle from "../../hooks/useToggle"
+import {useNavigate} from "react-router-dom"
+import AlertDialog from "../../atoms/AlertDialog"
 
 const Row = ({sale, index}) => {
+  const {deleteMutate} = useCrud('sales')
   const [open, toggleOpen] = useToggle()
+  const [idItemToDelete, setItemToDelete] = useState()
+  const navigate = useNavigate()
 
   return <Fragment key={index}>
-    <TableRow sx={{ '& > *': { borderBottom: 'unset' } }}>
+    <TableRow sx={{'& > *': {borderBottom: 'unset'}}}>
       <TableCell>
-        <IconButton size='small' onClick={()=>toggleOpen()}>
+        <IconButton size='small' onClick={() => toggleOpen()}>
           {open ? <KeyboardArrowUp/> : <KeyboardArrowDown/>}
         </IconButton>
       </TableCell>
@@ -23,13 +26,23 @@ const Row = ({sale, index}) => {
       <TableCell>{sale.document_number}</TableCell>
       <TableCell>{sale.total_amount}</TableCell>
       <TableCell>{sale.legend}</TableCell>
+      <TableCell>
+        <div className='flex flex-row gap-6'>
+          <IconButton onClick={() => navigate(`/modificar-venta/${sale.id}`)}>
+            <Edit/>
+          </IconButton>
+          <IconButton onClick={() => setItemToDelete(sale.id)}>
+            <Delete/>
+          </IconButton>
+        </div>
+      </TableCell>
     </TableRow>
     <TableRow>
-      <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={5}>
+      <TableCell style={{paddingBottom: 0, paddingTop: 0}} colSpan={5}>
         <Collapse in={open} timeout='auto' unmountOnExit>
           <Box sx={{margin: 1}}>
-            <div>Detalle de venta</div>
-            <Table size='small'>
+            <h2>Detalle de venta</h2>
+            <Table className='sub-table' size='small'>
               <TableHead>
                 <TableRow>
                   <TableCell>Producto</TableCell>
@@ -38,7 +51,7 @@ const Row = ({sale, index}) => {
                 </TableRow>
               </TableHead>
               <TableBody>
-                {sale.sale_details_attributes.map((saleDetail, saleDetailIndex)=>
+                {sale.sale_details_attributes.map((saleDetail, saleDetailIndex) =>
                   <TableRow key={saleDetailIndex}>
                     <TableCell>{saleDetail.product_name}</TableCell>
                     <TableCell>{saleDetail.laboratory_name}</TableCell>
@@ -51,15 +64,23 @@ const Row = ({sale, index}) => {
         </Collapse>
       </TableCell>
     </TableRow>
+    {idItemToDelete && <AlertDialog
+      title='Seguro que desea eliminar la venta?'
+      message='Esta a punto de eliminar una venta, si continua, los datos de stock de los productos en antiguos reportes seran opsoletos y debera generar nuevos reportes'
+      cancelOnClick={() => setItemToDelete(null)}
+      acceptOnClick={() => {
+        deleteMutate(idItemToDelete)
+        setItemToDelete(null)
+      }}
+    />}
   </Fragment>
 }
 
-const Products = () =>  {
-  const [record, setRecord] = useState(null)
-  const {data: sales = [], status, deleteMutate} = useCrud('sales')
+const Products = () => {
+  const {records: sales = [], statusRecords} = useCrud('sales')
   const navigate = useNavigate()
 
-  if (status !== 'success') return null
+  if (statusRecords !== 'success') return null
   return (
     <AppLayout
       title="Listado de Ventas"
@@ -71,11 +92,10 @@ const Products = () =>  {
         <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
           <div className="bg-white overflow-hidden shadow-xl sm:rounded-lg">
             <Form
-              onSubmit={()=>null}
-              initialValues={record}
-              render={({handleSubmit, form: {restart}}) => (
+              onSubmit={() => null}
+              render={({handleSubmit}) => (
                 <form onSubmit={handleSubmit} className='p-4 '>
-                  <Table className='mb-6'>
+                  <Table className='mb-6 table'>
                     <TableHead>
                       <TableRow>
                         <TableCell/>
@@ -83,10 +103,11 @@ const Products = () =>  {
                         <TableCell>Numero de documento</TableCell>
                         <TableCell>Total</TableCell>
                         <TableCell>Legenda</TableCell>
+                        <TableCell>Acciones</TableCell>
                       </TableRow>
                     </TableHead>
                     <TableBody>
-                      {sales.map( (sale, index) =>
+                      {sales.map((sale, index) =>
                         <Row sale={sale} index={index}/>
                       )}
                     </TableBody>

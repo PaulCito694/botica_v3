@@ -3,8 +3,9 @@ import React, {useState} from "react";
 import useCrud from "../hooks/useCrud";
 
 const Crud = ({setOpenModal, url}) => {
-  const {data, status, deleteMutate, updateMutate, create} = useCrud(url)
+  const {records, statusRecords, deleteMutate, update, create} = useCrud(url)
   const {mutateAsync: createMutate} = create()
+  const {mutateAsync: updateMutate} = update()
   const [record, setRecord] = useState(null)
 
   const onUpdate = (values) => setRecord(values)
@@ -17,7 +18,7 @@ const Crud = ({setOpenModal, url}) => {
       console.debug(err)
     }
   }
-  if (status !== 'success') return null
+  if (statusRecords !== 'success') return null
 
   return (<DialogCrud
       onDelete={deleteMutate}
@@ -25,7 +26,7 @@ const Crud = ({setOpenModal, url}) => {
       onSubmit={onSubmit}
       setOpenBrandModal={setOpenModal}
       onUpdate={onUpdate}
-      data={data}
+      data={records}
     />
   )
 }

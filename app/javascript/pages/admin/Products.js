@@ -25,11 +25,12 @@ const Products = () =>  {
   const [openBrandModal, setOpenBrandModal] = useState(false)
   const [openCategoryModal, setOpenCategoryModal] = useState(false)
   const [openLaboratoryModal, setOpenLaboratoryModal] = useState(false)
-  const {data: brands} = useCrud('brands')
-  const {data: laboratories} = useCrud('laboratories')
-  const {data: categories} = useCrud('categories')
-  const {data: products, status, deleteMutate, updateMutate, create} = useCrud('products')
+  const {records: brands} = useCrud('brands')
+  const {records: laboratories} = useCrud('laboratories')
+  const {records: categories} = useCrud('categories')
+  const {records: products, statusRecords, deleteMutate, update, create} = useCrud('products')
   const { mutateAsync: createMutate } = create()
+  const { mutateAsync: updateMutate } = update()
 
   const columns = [
     {name: 'Nombre', selector: (row) => row.name, width: '300px',},
@@ -70,7 +71,7 @@ const Products = () =>  {
     }
   }
 
-  if (status !== 'success') return null
+  if (statusRecords !== 'success') return null
   return (
     <AppLayout
       title="Catalogo de productos editado por carlos"
