@@ -28,7 +28,8 @@ const Products = () =>  {
   const {data: brands} = useCrud('brands')
   const {data: laboratories} = useCrud('laboratories')
   const {data: categories} = useCrud('categories')
-  const {data: products, status, deleteMutate, updateMutate, createMutate} = useCrud('products')
+  const {data: products, status, deleteMutate, updateMutate, create} = useCrud('products')
+  const { mutateAsync: createMutate } = create()
 
   const columns = [
     {name: 'Nombre', selector: (row) => row.name, width: '300px',},
